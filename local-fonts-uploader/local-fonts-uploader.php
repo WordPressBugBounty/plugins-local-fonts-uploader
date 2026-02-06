@@ -8,7 +8,7 @@
  * Tags:              custom fonts, google fonts, local fonts, upload fonts, GDPR compliant
  * License:           GPLv3
  * License URI:       https://www.gnu.org/licenses/gpl-3.0.html
- * Version:           1.2.0
+ * Version:           1.3.0
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author URI:        https://themeruby.com/
@@ -26,7 +26,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'LOCAL_FONTS_UPLOADER_VERSION', '1.2.0' );
+define( 'LOCAL_FONTS_UPLOADER_VERSION', '1.3.0' );
 define( 'LOCAL_FONTS_UPLOADER_PATH', plugin_dir_path( __FILE__ ) );
 define( 'LOCAL_FONTS_UPLOADER_URL', plugin_dir_url( __FILE__ ) );
 

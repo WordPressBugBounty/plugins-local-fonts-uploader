@@ -4,7 +4,7 @@ Tags: custom fonts, google fonts, local fonts, upload fonts, GDPR compliant
 Requires at least: 6.3
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 1.2.0
+Stable tag: 1.3.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -80,6 +80,11 @@ If you want to contribute, go to our [GitHub Repository](https://github.com/Them
 
 
 == Changelog ==
+
+= 1.3.0 =
+
+* Fixed: Admin help panel issue.
+
 
 = 1.2.0 =
 
