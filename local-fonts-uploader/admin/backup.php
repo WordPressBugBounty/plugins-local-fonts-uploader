@@ -29,7 +29,7 @@ if ( ! class_exists( 'Local_Fonts_Uploader_Backup_Restore', false ) ) {
 		 * @return Local_Fonts_Uploader_Backup_Restore The class instance.
 		 */
 		public static function get_instance() {
-			if ( self::$instance === null ) {
+			if ( null === self::$instance ) {
 				self::$instance = new self();
 			}
 
@@ -56,7 +56,7 @@ if ( ! class_exists( 'Local_Fonts_Uploader_Backup_Restore', false ) ) {
 		 *
 		 * @return true|false|WP_Error Returns true on success, or WP_Error on failure.
 		 */
-		static function restore( $data ) {
+		public static function restore( $data ) {
 
 			// Check if the user has the required permissions
 			if ( ! current_user_can( 'manage_options' ) ) {
@@ -105,7 +105,7 @@ if ( ! class_exists( 'Local_Fonts_Uploader_Backup_Restore', false ) ) {
 		 *
 		 * @return void
 		 */
-		static function restore_variants( $font_name, $all_variants = [] ) {
+		public static function restore_variants( $font_name, $all_variants = [] ) {
 
 			if ( ! function_exists( 'media_handle_sideload' ) ) {
 				require_once ABSPATH . 'wp-admin/includes/file.php';
@@ -128,7 +128,7 @@ if ( ! class_exists( 'Local_Fonts_Uploader_Backup_Restore', false ) ) {
 				'application/x-font-woff',  // Older MIME type for WOFF
 				'application/x-font-woff2', // Older MIME type for WOFF2
 				'application/vnd.ms-fontobject', // Embedded OpenType (EOT) fonts (used by older IE versions)
-				'application/font-sfnt'     // Alternative generic type for SFNT-based fonts
+				'application/font-sfnt',     // Alternative generic type for SFNT-based fonts
 			];
 			foreach ( $all_variants as $variant ) {
 
@@ -140,7 +140,7 @@ if ( ! class_exists( 'Local_Fonts_Uploader_Backup_Restore', false ) ) {
 				$file_url = esc_url_raw( $variant['file_url'] );
 
 				// Check if the file is already stored locally
-				if ( strpos( $file_url, $site_url ) === 0 ) {
+				if ( 0 === strpos( $file_url, $site_url ) ) {
 
 					// File is already uploaded to this site, reuse existing file details
 					$updated_variant = [

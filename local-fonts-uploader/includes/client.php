@@ -14,7 +14,7 @@ if ( ! class_exists( 'Local_Fonts_Uploader_Client', false ) ) {
 		private static $instance;
 		private $cache_key = 'local_fonts_uploader_css'; // Cache key for storing generated CSS
 
-		static $font_formats = [
+		private static $font_formats = [
 			'woff2' => 'woff2',
 			'woff'  => 'woff',
 			'ttf'   => 'truetype',
@@ -28,7 +28,7 @@ if ( ! class_exists( 'Local_Fonts_Uploader_Client', false ) ) {
 		 * @return Local_Fonts_Uploader_Client
 		 */
 		public static function get_instance() {
-			if ( self::$instance === null ) {
+			if ( null === self::$instance ) {
 				self::$instance = new self();
 			}
 
@@ -76,19 +76,19 @@ if ( ! class_exists( 'Local_Fonts_Uploader_Client', false ) ) {
 				return ''; // Return empty if required data is missing
 			}
 
-			$font_name     = esc_attr( $variant['font_name'] );
-			$variant_value = esc_attr( $variant['variant'] );
-			$file_url      = esc_url( $variant['file_url'] );
+			$font_name     = sanitize_text_field( $variant['font_name'] );
+			$variant_value = sanitize_text_field( $variant['variant'] );
+			$file_url      = esc_url_raw( $variant['file_url'] );
 			$file_ext      = pathinfo( $file_url, PATHINFO_EXTENSION );
 			$format        = isset( self::$font_formats[ $file_ext ] ) ? self::$font_formats[ $file_ext ] : 'woff2';
 
 			// Extract font-weight and font-style from variant value
 			$font_weight = preg_replace( '/[^0-9]/', '', $variant_value );
-			$font_style  = ( strpos( $variant_value, 'italic' ) !== false ) ? 'italic' : 'normal';
-			$assign_to   = esc_attr( $variant['assign_to'] );
+			$font_style  = ( false !== strpos( $variant_value, 'italic' ) ) ? 'italic' : 'normal';
+			$assign_to   = sanitize_text_field( $variant['assign_to'] );
 
 			// Generate @font-face rule
-			$output_font_face = "@font-face {\n";
+			$output_font_face  = "@font-face {\n";
 			$output_font_face .= "    font-family: '{$font_name}';\n";
 			$output_font_face .= "    font-weight: {$font_weight};\n";
 			$output_font_face .= "    font-style: {$font_style};\n";
@@ -100,7 +100,7 @@ if ( ! class_exists( 'Local_Fonts_Uploader_Client', false ) ) {
 			$output = apply_filters( 'local_fonts_uploader_font_face_css', $output_font_face, $font_name, $font_weight, $font_style, $file_url );
 
 			// Generate CSS rules to apply the font to the assigned selectors
-			$output_assign_to = "{$assign_to} {\n";
+			$output_assign_to  = "{$assign_to} {\n";
 			$output_assign_to .= "    font-family: '{$font_name}', sans-serif;\n";
 			$output_assign_to .= "    font-weight: {$font_weight};\n";
 			$output_assign_to .= "    font-style: {$font_style};\n";
@@ -124,7 +124,7 @@ if ( ! class_exists( 'Local_Fonts_Uploader_Client', false ) ) {
 
 			$cached_css = get_option( $this->cache_key );
 
-			if ( $cached_css !== false ) {
+			if ( false !== $cached_css ) {
 				return stripslashes( $cached_css );
 			}
 

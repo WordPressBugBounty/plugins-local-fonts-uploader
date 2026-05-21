@@ -10,7 +10,7 @@ if ( ! class_exists( 'Local_Fonts_Uploader_Ajax_Handler', false ) ) {
 
 		public static function get_instance() {
 
-			if ( self::$instance === null ) {
+			if ( null === self::$instance ) {
 				self::$instance = new self();
 			}
 
@@ -123,9 +123,24 @@ if ( ! class_exists( 'Local_Fonts_Uploader_Ajax_Handler', false ) ) {
 		 */
 		private function is_valid_variant( $variant ) {
 			$valid_variants = [
-				"100", "100italic", "200", "200italic", "300", "300italic",
-				"400", "400italic", "500", "500italic", "600", "600italic",
-				"700", "700italic", "800", "800italic", "900", "900italic",
+				'100',
+				'100italic',
+				'200',
+				'200italic',
+				'300',
+				'300italic',
+				'400',
+				'400italic',
+				'500',
+				'500italic',
+				'600',
+				'600italic',
+				'700',
+				'700italic',
+				'800',
+				'800italic',
+				'900',
+				'900italic',
 			];
 
 			return in_array( $variant, $valid_variants, true );
@@ -218,7 +233,6 @@ if ( ! class_exists( 'Local_Fonts_Uploader_Ajax_Handler', false ) ) {
 			}
 
 			wp_die();
-
 		}
 
 		/**
@@ -353,7 +367,6 @@ if ( ! class_exists( 'Local_Fonts_Uploader_Ajax_Handler', false ) ) {
 			}
 
 			wp_die();
-
 		}
 
 		/**
@@ -394,7 +407,6 @@ if ( ! class_exists( 'Local_Fonts_Uploader_Ajax_Handler', false ) ) {
 			wp_send_json_success( Local_Fonts_Uploader_Data::get_variants( $font_name ) );
 
 			wp_die();
-
 		}
 
 
@@ -426,10 +438,12 @@ if ( ! class_exists( 'Local_Fonts_Uploader_Ajax_Handler', false ) ) {
 			// Assign the font variant
 			$result = Local_Fonts_Uploader_Data::assign_variant( $data['variant_id'], rtrim( trim( $data['assign_to'] ), ',' ) );
 
-			if ( $result !== false ) {
-				wp_send_json_success( [
-					'message' => esc_html__( 'Font variant assigned successfully.', 'local-fonts-uploader' ),
-				] );
+			if ( false !== $result ) {
+				wp_send_json_success(
+					[
+						'message' => esc_html__( 'Font variant assigned successfully.', 'local-fonts-uploader' ),
+					]
+				);
 			} else {
 				wp_send_json_error( esc_html__( 'Could not assign the font variant.', 'local-fonts-uploader' ) );
 			}
@@ -459,10 +473,12 @@ if ( ! class_exists( 'Local_Fonts_Uploader_Ajax_Handler', false ) ) {
 			}
 
 			// Send JSON response with font and variant data
-			wp_send_json_success( [
-				'fonts'    => (array) Local_Fonts_Uploader_Data::get_fonts(),
-				'variants' => (array) Local_Fonts_Uploader_Data::get_all_variants(),
-			] );
+			wp_send_json_success(
+				[
+					'fonts'    => (array) Local_Fonts_Uploader_Data::get_fonts(),
+					'variants' => (array) Local_Fonts_Uploader_Data::get_all_variants(),
+				]
+			);
 
 			wp_die();
 		}
@@ -501,8 +517,6 @@ if ( ! class_exists( 'Local_Fonts_Uploader_Ajax_Handler', false ) ) {
 
 			wp_die();
 		}
-
-
 	}
 }
 

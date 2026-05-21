@@ -2,9 +2,9 @@
 Contributors: themeruby
 Tags: custom fonts, google fonts, local fonts, upload fonts, GDPR compliant
 Requires at least: 6.3
-Tested up to: 6.9
+Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.3.0
+Stable tag: 1.4.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -54,10 +54,10 @@ Access the plugin documentation for usage instructions: [Documentation](https://
 
 To install Local Fonts Uploader, follow these steps:
 
-1. Go to Plugins > Add New.  
-2. Search for "Local Fonts Uploader."  
-3. Install and activate Local Fonts Uploader from your Plugins page.  
-4. Navigate to Dashboard > Local Fonts Uploader.  
+1. Go to Plugins > Add New.
+2. Search for "Local Fonts Uploader."
+3. Install and activate Local Fonts Uploader from your Plugins page.
+4. Navigate to Dashboard > Local Fonts Uploader.
 5. Create your own font name and add variants.
 6. Assign them to desired CSS selectors and enjoy the results.
 7. Read the [Documentation](https://localfonts.themeruby.com/docs/) to get started.
@@ -80,6 +80,13 @@ If you want to contribute, go to our [GitHub Repository](https://github.com/Them
 
 
 == Changelog ==
+
+= 1.4.0 =
+
+* Improved: WordPress coding standards compliance.
+* Improved: Compatibility with WordPress 7.0.
+* Improved: Added proper visibility declarations to all static methods and properties.
+* Improved: CSS output escaping for better security and compatibility.
 
 = 1.3.0 =
 

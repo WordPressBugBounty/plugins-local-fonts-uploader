@@ -9,7 +9,7 @@ if ( ! class_exists( 'Local_Fonts_Uploader_Admin_Menu', false ) ) {
 
 		public static function get_instance() {
 
-			if ( self::$instance === null ) {
+			if ( null === self::$instance ) {
 				self::$instance = new self();
 			}
 
@@ -37,7 +37,9 @@ if ( ! class_exists( 'Local_Fonts_Uploader_Admin_Menu', false ) ) {
 			wp_register_script( 'lfontsup-vendor', LOCAL_FONTS_UPLOADER_URL . 'admin/assets/vendor.bundle.js', [], LOCAL_FONTS_UPLOADER_VERSION, true );
 			wp_register_script( 'lfontsup-admin', LOCAL_FONTS_UPLOADER_URL . 'admin/assets/main.bundle.js', [ 'lfontsup-vendor' ], LOCAL_FONTS_UPLOADER_VERSION, true );
 
-			wp_localize_script( 'lfontsup-admin', 'lfontsupAdminConfig',
+			wp_localize_script(
+				'lfontsup-admin',
+				'lfontsupAdminConfig',
 				[
 					'ajaxUrl'       => admin_url( 'admin-ajax.php' ),
 					'nonce'         => wp_create_nonce( 'local-fonts-uploader' ),
@@ -100,7 +102,7 @@ if ( ! class_exists( 'Local_Fonts_Uploader_Admin_Menu', false ) ) {
 		 */
 		function add_plugin_setting_link( $links, $file ) {
 
-			if ( $file === 'local-fonts-uploader/local-fonts-uploader.php' && current_user_can( 'manage_options' ) ) {
+			if ( 'local-fonts-uploader/local-fonts-uploader.php' === $file && current_user_can( 'manage_options' ) ) {
 				$links[] = '<a href="admin.php?page=local-fonts-uploader">' . esc_html__( 'Settings', 'local-fonts-uploader' ) . '</a>';
 			}
 
@@ -123,7 +125,6 @@ if ( ! class_exists( 'Local_Fonts_Uploader_Admin_Menu', false ) ) {
 
 			// Enqueue admin scripts and styles
 			add_action( 'admin_enqueue_scripts', [ $this, 'admin_enqueue' ] );
-
 		}
 
 		/**

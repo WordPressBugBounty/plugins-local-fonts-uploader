@@ -16,7 +16,7 @@ defined( 'ABSPATH' ) || exit;
 if ( ! function_exists( 'local_fonts_uploader_make_db' ) ) {
 	function local_fonts_uploader_make_db() {
 
-		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 
 		global $wpdb;
 		$charset_collate = $wpdb->get_charset_collate();

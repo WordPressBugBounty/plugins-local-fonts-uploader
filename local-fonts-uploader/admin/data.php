@@ -18,7 +18,7 @@ if ( ! class_exists( 'Local_Fonts_Uploader_Data' ) ) {
 		 * @return int|false The number of rows affected or false on failure.
 		 * @global wpdb $wpdb WordPress database abstraction object.
 		 */
-		static function insert_font( $name, $amount = 0, $font_data = null ) {
+		public static function insert_font( $name, $amount = 0, $font_data = null ) {
 
 			global $wpdb;
 
@@ -49,7 +49,7 @@ if ( ! class_exists( 'Local_Fonts_Uploader_Data' ) ) {
 		 *
 		 * @return bool True on success, false if the font name is empty.
 		 */
-		static function delete_font( $font_name ) {
+		public static function delete_font( $font_name ) {
 
 			global $wpdb;
 
@@ -59,10 +59,12 @@ if ( ! class_exists( 'Local_Fonts_Uploader_Data' ) ) {
 			$wpdb->delete( $wpdb->prefix . 'lfontsup_fonts', [ 'name' => $font_name ] ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 
 			// Get all file IDs related to the font from lfontsup_variants
-			$file_ids = $wpdb->get_col( $wpdb->prepare(  // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-				"SELECT file_id FROM {$wpdb->prefix}lfontsup_variants WHERE font_name = %s",
-				$font_name
-			) );
+			$file_ids = $wpdb->get_col(
+				$wpdb->prepare(  // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+					"SELECT file_id FROM {$wpdb->prefix}lfontsup_variants WHERE font_name = %s",
+					$font_name
+				)
+			);
 
 			// Delete attachments if there are any file IDs
 			if ( ! empty( $file_ids ) ) {
@@ -89,7 +91,7 @@ if ( ! class_exists( 'Local_Fonts_Uploader_Data' ) ) {
 		 * @global wpdb $wpdb WordPress database abstraction object.
 		 *
 		 */
-		static function get_fonts() {
+		public static function get_fonts() {
 
 			global $wpdb;
 
@@ -130,8 +132,8 @@ if ( ! class_exists( 'Local_Fonts_Uploader_Data' ) ) {
 			// Fetch all variants for the given font_name, ordered by length and alphabetically
 			return $wpdb->get_results(  // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 				$wpdb->prepare(
-					"SELECT * FROM {$wpdb->prefix}lfontsup_variants 
-			         WHERE font_name = %s 
+					"SELECT * FROM {$wpdb->prefix}lfontsup_variants
+			         WHERE font_name = %s
 			         ORDER BY LENGTH(variant), variant ASC",
 					$font_name
 				),
@@ -150,7 +152,7 @@ if ( ! class_exists( 'Local_Fonts_Uploader_Data' ) ) {
 		 *
 		 * @return bool True if the font exists, false otherwise.
 		 */
-		static function font_exists( $font_name ) {
+		public static function font_exists( $font_name ) {
 			global $wpdb;
 
 			// Sanitize the font name to ensure valid input
@@ -177,7 +179,7 @@ if ( ! class_exists( 'Local_Fonts_Uploader_Data' ) ) {
 		 *
 		 * @return bool True if the variant exists, false otherwise.
 		 */
-		static function variant_exists( $font_name, $variant ) {
+		public static function variant_exists( $font_name, $variant ) {
 			global $wpdb;
 
 			// Ensure font name and variant is sanitized and valid
@@ -214,7 +216,7 @@ if ( ! class_exists( 'Local_Fonts_Uploader_Data' ) ) {
 		 * }
 		 * @return int|false The inserted row ID on success, false on failure.
 		 */
-		static function insert_variant( $data ) {
+		public static function insert_variant( $data ) {
 			global $wpdb;
 
 			// Insert the new variant
@@ -245,17 +247,20 @@ if ( ! class_exists( 'Local_Fonts_Uploader_Data' ) ) {
 		 * @return string|false The name of the font if the variant is deleted successfully, or false if the variant is not found.
 		 * @global wpdb $wpdb WordPress database abstraction object.
 		 */
-		static function delete_variant( $variant_id ) {
+		public static function delete_variant( $variant_id ) {
 
 			$variant_id = intval( $variant_id );
 
 			global $wpdb;
 
 			// Get the file_id associated with this variant
-			$variant = $wpdb->get_row( $wpdb->prepare(  // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-				"SELECT font_name, file_id FROM {$wpdb->prefix}lfontsup_variants WHERE id = %d",
-				$variant_id
-			), ARRAY_A );
+			$variant = $wpdb->get_row(
+				$wpdb->prepare(  // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+					"SELECT font_name, file_id FROM {$wpdb->prefix}lfontsup_variants WHERE id = %d",
+					$variant_id
+				),
+				ARRAY_A
+			);
 
 			if ( ! $variant ) {
 				return false; // Variant not found
@@ -287,7 +292,7 @@ if ( ! class_exists( 'Local_Fonts_Uploader_Data' ) ) {
 		 * @return int|false Returns the total variant count if updated successfully, or false if the font name is invalid.
 		 * @global wpdb $wpdb WordPress database abstraction object.
 		 */
-		static function sync_variant_count( $font_name ) {
+		public static function sync_variant_count( $font_name ) {
 
 			if ( empty( $font_name ) ) {
 				return false;
@@ -299,10 +304,12 @@ if ( ! class_exists( 'Local_Fonts_Uploader_Data' ) ) {
 			global $wpdb;
 
 			// Get the total number of rows with the given font_name
-			$total = (int) $wpdb->get_var( $wpdb->prepare(  // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-				"SELECT COUNT(*) FROM {$wpdb->prefix}lfontsup_variants WHERE font_name = %s",
-				$font_name
-			) );
+			$total = (int) $wpdb->get_var(
+				$wpdb->prepare(  // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+					"SELECT COUNT(*) FROM {$wpdb->prefix}lfontsup_variants WHERE font_name = %s",
+					$font_name
+				)
+			);
 
 			// If there are variants associated with the font, update the count in lfontsup_fonts
 			if ( ! empty( $total ) ) {
@@ -329,7 +336,7 @@ if ( ! class_exists( 'Local_Fonts_Uploader_Data' ) ) {
 		 *
 		 * @return bool  Returns true if the update was successful, false otherwise.
 		 */
-		static function assign_variant( $variant_id, $assign_to ) {
+		public static function assign_variant( $variant_id, $assign_to ) {
 			global $wpdb;
 
 			// Ensure that $assign_to is sanitized and $variant_id is a valid integer.
@@ -337,10 +344,12 @@ if ( ! class_exists( 'Local_Fonts_Uploader_Data' ) ) {
 			$assign_to  = sanitize_text_field( $assign_to );
 
 			// Check if variant ID exists
-			$variant_exists = $wpdb->get_var( $wpdb->prepare(  // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-				"SELECT COUNT(*) FROM {$wpdb->prefix}lfontsup_variants WHERE id = %d",
-				$variant_id
-			) );
+			$variant_exists = $wpdb->get_var(
+				$wpdb->prepare(  // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+					"SELECT COUNT(*) FROM {$wpdb->prefix}lfontsup_variants WHERE id = %d",
+					$variant_id
+				)
+			);
 
 			if ( ! $variant_exists ) {
 				return false; // Exit if the variant ID does not exist
@@ -358,7 +367,7 @@ if ( ! class_exists( 'Local_Fonts_Uploader_Data' ) ) {
 			// clear css caching
 			self::clear_caching();
 
-			return $updated !== false;
+			return false !== $updated;
 		}
 
 		/**
@@ -367,7 +376,7 @@ if ( ! class_exists( 'Local_Fonts_Uploader_Data' ) ) {
 		 * This function deletes the `local_fonts_uploader_css` option from the database
 		 * to force a refresh of the stored font styles.
 		 */
-		static function clear_caching() {
+		public static function clear_caching() {
 			delete_option( 'local_fonts_uploader_css' );
 		}
 	}

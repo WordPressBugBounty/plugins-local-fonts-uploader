@@ -35,7 +35,7 @@ if ( ! function_exists( 'local_fonts_uploader_strings' ) ) {
 			'addVariantSuccessMessage'    => esc_html__( 'Font variant %s was added successfully.', 'local-fonts-uploader' ),
 			'deleteFontSuccessTitle'      => esc_html__( 'Font Deleted Successfully.', 'local-fonts-uploader' ),
 			/* translators: %s represents the name of the deleted font */
-			'deleteFontSuccessMessage'    => esc_html__( 'Font %s was  deleted successfully.', 'local-fonts-uploader' ),
+			'deleteFontSuccessMessage'    => esc_html__( 'Font %s was deleted successfully.', 'local-fonts-uploader' ),
 			/* translators: %s represents the name of the deleted variant */
 			'deleteVariantSuccessMessage' => esc_html__( 'The variant %s has been deleted successfully.', 'local-fonts-uploader' ),
 			/* translators: %s represents the font name */
@@ -67,7 +67,7 @@ if ( ! function_exists( 'local_fonts_uploader_strings' ) ) {
 			'selectVariant'               => esc_html__( 'Select a Variant', 'local-fonts-uploader' ),
 			'saveChanges'                 => esc_html__( 'Save Changes', 'local-fonts-uploader' ),
 			'allVariantsAvailable'        => esc_html__( 'Congratulations. Variants Uploaded Successfully', 'local-fonts-uploader' ),
-			'allVariantsAvailableDecs'    => esc_html__( 'CongYour font variants have been uploaded successfully. They are now ready for use.', 'local-fonts-uploader' ),
+			'allVariantsAvailableDecs'    => esc_html__( 'Your font variants have been uploaded successfully. They are now ready for use.', 'local-fonts-uploader' ),
 			'ok'                          => esc_html__( 'OK', 'local-fonts-uploader' ),
 			'backupRestore'               => esc_html__( 'Backup and Restore', 'local-fonts-uploader' ),
 			'cssSelectors'                => esc_html__( 'CSS Selectors', 'local-fonts-uploader' ),
@@ -106,6 +106,8 @@ if ( ! function_exists( 'local_fonts_uploader_strings' ) ) {
 			'pixwellThemeTitle'           => esc_html__( 'Pixwell', 'local-fonts-uploader' ),
 			'pixwellTagline'              => esc_html__( 'Magazine WordPress Theme', 'local-fonts-uploader' ),
 			'learnMore'                   => esc_html__( 'Learn More', 'local-fonts-uploader' ),
+			'recommendedPlugins'          => esc_html__( 'Recommended Plugins', 'local-fonts-uploader' ),
+			'recommendedPluginsDesc'      => esc_html__( 'Recommended plugins from ThemeRuby that work great with Local Fonts Uploader.', 'local-fonts-uploader' ),
 		];
 	}
 }
